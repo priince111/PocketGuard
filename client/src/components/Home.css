@@ -1,0 +1,107 @@
+
+.home-container {
+  background-color: #000;
+  color: white;
+  padding: 20px;
+  min-height: 100vh;
+}
+
+.navbarCSS {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 20px;
+  background-color: #000;
+  margin-bottom: 50px;
+}
+
+.navTitle {
+  font-size: 24px;
+  font-weight: bold;
+}
+
+.logout-button {
+  background-color: #0d6efd;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  padding: 6px 12px;
+  margin-left: 62rem;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+.logout-button:hover {
+  background-color: #0b5ed7;
+}
+
+
+.row-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.iconBtnBox {
+  display: flex;
+  border: 2px solid white;
+  border-radius: 5px;
+  padding: 5px;
+}
+
+.iconActive {
+  color: blue;
+}
+
+.iconDeactive {
+  color: grey;
+}
+
+.addNew {
+  background-color: blue;
+  color: white;
+}
+
+.centered-modal .modal-content {
+  margin: 2px;
+}
+
+.calendar-container {
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+}
+
+.custom-date-picker {
+  width: 100%;
+  background-color: white;
+  color: black;
+}
+
+.date-picker {
+  position: relative;
+}
+
+.date-picker label {
+  display: block;
+  margin-bottom: 5px;
+}
+
+.resetBtnBox {
+  text-align: center;
+}
+
+.resetBtn {
+  background-color: blue;
+  color: white;
+  margin-bottom: 20px;
+}
+
+/* Custom positioning for DatePicker */
+.date-picker .react-datepicker__tab-loop {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  z-index: 1;
+}
