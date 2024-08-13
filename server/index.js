@@ -9,7 +9,9 @@ const otpRoute = require("./routes/otpRoute");
 const app = express();
 app.use(express.json());
 app.use(cors());
-
+app.use(cors({
+  origin: 'pocket-guard-frontend.vercel.app'
+}));
 app.use(cookieParser());
 
 mongoose
