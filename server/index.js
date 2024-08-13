@@ -8,10 +8,13 @@ const userRoute = require("./routes/userRoute");
 const otpRoute = require("./routes/otpRoute");
 const app = express();
 app.use(express.json());
-app.use(cors());
+
 app.use(cors({
-  origin: 'pocket-guard-frontend.vercel.app'
+  origin: ['http://localhost:3000', 'https://pocketguard-v2.vercel.app/'],
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization']
 }));
+
 app.use(cookieParser());
 
 mongoose

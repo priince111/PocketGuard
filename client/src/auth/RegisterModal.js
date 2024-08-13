@@ -14,6 +14,7 @@ import Alert from "@mui/material/Alert";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import * as EmailValidator from "email-validator";
 import { useSignup } from "../hooks/useSignup";
+import api from "../components/utils/api";
 
 function Copyright(props) {
   return (
@@ -63,7 +64,7 @@ const Signup = () => {
     }
     if (!showOtpField) {
       try {
-        const response = await axios.post("/api/sendOTP", userData);
+        const response = await api.post("/api/sendOTP", userData);
         if (response.status === 200) {
           setFormError("");
           setShowOtpField(true);

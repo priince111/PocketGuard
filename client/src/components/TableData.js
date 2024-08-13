@@ -1,5 +1,5 @@
 import React, {useContext, useState } from "react";
-import axios from 'axios'
+import api from './utils/api'
 import { Container, Table, Button, Modal, Form } from "react-bootstrap";
 import EditNoteIcon from "@mui/icons-material/EditNote";
 import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
@@ -47,7 +47,7 @@ const TableData = () => {
     }
     console.log("currid",currId)
     try {
-      const response = await axios.put(
+      const response = await api.put(
         `/api/updateTransaction/${currId}`,
         {
           title,
@@ -101,7 +101,7 @@ const TableData = () => {
   const handleDeleteClick = async(itemKey) => {
     try {
       console.log("userid in delete",user.existingUser._id)
-      const response = await axios.delete(`/api/deleteTransaction/${itemKey}`, 
+      const response = await api.delete(`/api/deleteTransaction/${itemKey}`, 
         {
           data: { userId: user.existingUser._id },
           headers: {Authorization: `Bearer ${user.token}`}

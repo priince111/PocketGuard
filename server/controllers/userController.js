@@ -7,6 +7,7 @@ const dotenv = require("dotenv").config();
 const signup = async (req, res) => {
   const { FirstName, LastName, email, password } = req.body.userdata;
   const {otp} = req.body;
+  console.log("req.body",req.body)
   
   if (!FirstName || !LastName || !email || !password || !otp) {
     return res.status(400).json({ error: "Please enter all the required details." });
@@ -44,7 +45,7 @@ const signup = async (req, res) => {
 };
 
 const signin = async (req, res) => {
-  const { email, password } = req.body.userdata;
+  const { email, password } = req.body;
   if (!email || !password) {
     return res.status(400).json({ error: "Please enter the Credentials." });
   }

@@ -1,5 +1,5 @@
 import React, { useContext, useState, useEffect } from "react";
-import axios from "axios";
+import api from "./utils/api";
 import { useLogout } from "../hooks/useLogout";
 import { UserContext } from "../contexts/UserContext";
 import { TransactionContext } from "../contexts/TransactionContext";
@@ -77,7 +77,7 @@ const Home = () => {
       return;
     }
     try {
-      const response = await axios.post(
+      const response = await api.post(
         "/api/addTransaction",
         {
           title,
@@ -142,7 +142,7 @@ const Home = () => {
     const fetchTransactions = async () => {
       console.log("started");
       try {
-        const response = await axios.get(
+        const response = await api.get(
           `/api/getTransaction`,
           {
             params: {
@@ -159,7 +159,6 @@ const Home = () => {
 
         if (response.status === 200) {
           const json = response.data;
-          console.log("transactionsjson", json);
           dispatch({ type: "SET_TRANSACTION", payload: json });
         }
       } catch (err) {

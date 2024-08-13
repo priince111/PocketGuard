@@ -1,30 +1,37 @@
-import { useState } from 'react'
+import { useState } from "react";
+import api from "../components/utils/api";
 export const useSignup = () => {
   const [error, setError] = useState(null);
   const [isLoading, setIsLoading] = useState(null);
   const [success, setSuccess] = useState(false);
 
-  const signup = async (userdata,otp) => {
-    setIsLoading(true)
-    setError(null)
-    setSuccess(false)
-    const response = await fetch('/api/signup', {
-      method: 'POST',
-      headers: {'Content-Type': 'application/json'},
-      body: JSON.stringify({userdata,otp })
-    })
-    const json = await response.json()
+  const signup = async (userdata, otp) => {
+    setIsLoading(true);
+    setError(null);
+    setSuccess(false);
+    try {
+      const response = await api.post(
+        "/api/signup",
+        { userdata, otp },
+        { headers: { "Content-Type": "application/json" } }
+      );
 
-    if (!response.ok) {
-      setIsLoading(false)
-      setError(json.error)
-    }
-    if (response.ok) {
-      setIsLoading(false)
-      setSuccess(true)
-      window.location.href = '/signin';
-    }
-  }
+      const json = response.data;
 
-  return { signup, isLoading, error, success }
-}
+      if (!response.ok) {
+        setIsLoading(false);
+        setError(json.error);
+      }
+      setIsLoading(false);
+      setSuccess(true);
+      window.location.href = "/signin";
+    } catch (err) {
+      console.log(err);
+      setError(err.error || "Something went wrong");
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  return { signup, isLoading, error, success };
+};

@@ -36,6 +36,7 @@ export default function SignIn() {
 
   const handleSubmit = (event) => {
     event.preventDefault();
+    console.log("hi uth",process.env.REACT_APP_API_URL)
     const data = new FormData(event.currentTarget);
     const userData = {
       email: data.get('email'),
