@@ -7,32 +7,36 @@ const transactionRoute = require("./routes/TransactionRoute");
 const userRoute = require("./routes/userRoute");
 const otpRoute = require("./routes/otpRoute");
 const app = express();
+
 app.use(express.json());
+app.use(cookieParser());
+
+const allowedOrigins = ['http://localhost:3000', 'https://pocketguard-v2.vercel.app'];
 
 app.use(cors({
-  origin: ['http://localhost:3000', 'https://pocketguard-v2.vercel.app'],
+  origin: function (origin, callback) {
+    if (!origin || allowedOrigins.indexOf(origin) !== -1) {
+      callback(null, true);
+    } else {
+      callback(new Error('Not allowed by CORS'));
+    }
+  },
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
-  allowedHeaders: ['Content-Type', 'Authorization']
+  credentials: true, 
+  allowedHeaders: ['Content-Type', 'Authorization'],
 }));
 
-app.use(cookieParser());
+// Handle preflight requests
+app.options('*', cors());
 
 mongoose
   .connect(process.env.dbURI)
   .then(() => console.log("MongoDB Connected"))
   .catch((err) => console.log(err));
 
-app.use('/api',transactionRoute);
-app.use('/api',userRoute)
-app.use('/api',otpRoute)
-
-app.use(function (request, response, next) {
-  response.header("Access-Control-Allow-Origin", "*");
-  response.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
-  next();
-});
-
-app.options('*', cors());
+app.use('/api', transactionRoute);
+app.use('/api', userRoute);
+app.use('/api', otpRoute);
 
 const port = process.env.PORT || 4000;
 app.listen(port, () => console.log(`Server running on port ${port}`));
