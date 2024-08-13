@@ -26,5 +26,7 @@ app.use('/api',transactionRoute);
 app.use('/api',userRoute)
 app.use('/api',otpRoute)
 
+app.options('*', cors());
+
 const port = process.env.PORT || 4000;
 app.listen(port, () => console.log(`Server running on port ${port}`));
