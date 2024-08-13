@@ -18,9 +18,8 @@ export const useLogin = () => {
         headers: { 'Content-Type': 'application/json' }
       });
       const json = response.data;
-
+      
       if (response.status !== 200) {
-        console.log("m here",json.error)
         setError(json.error);
         return;
       }
@@ -30,7 +29,7 @@ export const useLogin = () => {
       window.location.href = '/home';
     } catch (err) {
       console.error("the error",err); 
-      setError(err.error || "Something went wrong");;
+      setError(err.response.data.error || "Something went wrong");
     } finally {
       setIsLoading(false);
     }

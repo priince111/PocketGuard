@@ -18,7 +18,7 @@ function Copyright(props) {
   return (
     <Typography variant="body2" color="text.secondary" align="center" {...props}>
       {'Copyright © '}
-      <Link color="inherit" href="http://localhost:3000/signin">
+      <Link color="inherit" href={`${process.env.REACT_HOST}/signin`}>
         Your Website
       </Link>{' '}
       {new Date().getFullYear()}
@@ -36,7 +36,6 @@ export default function SignIn() {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    console.log("hi uth",process.env.REACT_APP_API_URL)
     const data = new FormData(event.currentTarget);
     const userData = {
       email: data.get('email'),

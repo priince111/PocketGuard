@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import axios from "axios";
 import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
 import CssBaseline from "@mui/material/CssBaseline";
@@ -25,7 +24,7 @@ function Copyright(props) {
       {...props}
     >
       {"Copyright © "}
-      <Link color="inherit" href="http://localhost:3000/signin">
+      <Link color="inherit" href={`${process.env.REACT_HOST}/signin`}>
         Your Website
       </Link>{" "}
       {new Date().getFullYear()}
@@ -57,7 +56,6 @@ const Signup = () => {
       setFormError("Invalid email address.");
       return;
     }
-    console.log(userData, userData.password.length);
     if (userData.password.length < 6) {
       setFormError("Password must be at least 6 characters.");
       return;

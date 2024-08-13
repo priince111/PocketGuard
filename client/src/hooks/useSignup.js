@@ -27,7 +27,7 @@ export const useSignup = () => {
       window.location.href = "/signin";
     } catch (err) {
       console.log(err);
-      setError(err.error || "Something went wrong");
+      setError(err.json.error || "Something went wrong");
     } finally {
       setIsLoading(false);
     }
