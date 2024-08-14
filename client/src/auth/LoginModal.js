@@ -18,7 +18,7 @@ function Copyright(props) {
   return (
     <Typography variant="body2" color="text.secondary" align="center" {...props}>
       {'Copyright © '}
-      <Link color="inherit" href={`${process.env.REACT_HOST}/signin`}>
+      <Link color="inherit" href={`${process.env.REACT_APP_HOST}/signin`}>
         Your Website
       </Link>{' '}
       {new Date().getFullYear()}

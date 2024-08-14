@@ -24,7 +24,7 @@ function Copyright(props) {
       {...props}
     >
       {"Copyright © "}
-      <Link color="inherit" href={`${process.env.REACT_HOST}/signin`}>
+      <Link color="inherit" href={`${process.env.REACT_APP_HOST}/signin`}>
         Your Website
       </Link>{" "}
       {new Date().getFullYear()}
