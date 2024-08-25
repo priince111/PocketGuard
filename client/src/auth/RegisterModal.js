@@ -11,6 +11,8 @@ import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import Alert from "@mui/material/Alert";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import * as EmailValidator from "email-validator";
 import { useSignup } from "../hooks/useSignup";
 import api from "../components/utils/api";
@@ -50,8 +52,6 @@ const Signup = () => {
       password: data.get("password"),
     };
 
-    console.log("userdata",userData)
-
     if (!EmailValidator.validate(userData.email)) {
       setFormError("Invalid email address.");
       return;
@@ -66,6 +66,8 @@ const Signup = () => {
         if (response.status === 200) {
           setFormError("");
           setShowOtpField(true);
+          toast.success("OTP sent to the mail");
+
         }
       } catch (err) {
         setFormError("Failed to send OTP. Please check your details.");

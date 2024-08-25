@@ -12,6 +12,7 @@ import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import {useLogin} from '../hooks/useLogin';
+import { useGuestLogin } from '../hooks/useGuestLogin';
 import { UserContext } from '../contexts/UserContext';
 
 function Copyright(props) {
@@ -31,8 +32,9 @@ function Copyright(props) {
 const defaultTheme = createTheme();
 
 export default function SignIn() {
-  const {login, isLoading, error, success} = useLogin();
-  const {user} = useContext(UserContext);
+  const { login, isLoading: isLoginLoading, error: loginError, success } = useLogin();
+  const { user } = useContext(UserContext);
+  const { guestLogin, isLoading: isGuestLoading, error: guestLoginError } = useGuestLogin();
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -44,6 +46,10 @@ export default function SignIn() {
     console.log("data in modal",userData);
     login(userData);
   };
+
+  const handleGuestLogin = () => {
+    guestLogin();
+  }
 
   useEffect ( () => {
     if (user) {
@@ -70,8 +76,8 @@ export default function SignIn() {
           <Typography component="h1" variant="h5">
             Sign in
           </Typography>
-          {error && <Alert severity="error">{error}</Alert>}
-          {success && <Alert severity="success">Registered successfully! Redirecting to sign-in page...</Alert>}
+          {(loginError|| guestLoginError) && <Alert severity="error">{((loginError|| guestLoginError))}</Alert>}
+          {success && <Alert severity="success">Login successfully! Redirecting to home page...</Alert>}
           <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
             <TextField
               margin="normal"
@@ -99,15 +105,15 @@ export default function SignIn() {
               variant="contained"
               sx={{ mt: 3, mb: 2 }}
             >
-              {isLoading ? 'Signing In...' : 'Sign In'}
+              {isLoginLoading ? 'Signing In...' : 'Sign In'}
             </Button>
             <Grid container justifyContent="flex-end">
-              {/* <Grid item xs>
-                <Link href="#" variant="body2">
-                  Forgot password?
-                </Link>
-              </Grid> */}
               <Grid item>
+                <Link onClick={handleGuestLogin} variant="body2">
+                {isGuestLoading ? 'Logging in as Guest...' : 'Login as Guest'}
+                </Link>
+              </Grid>
+              <Grid item xs style={{ textAlign: 'right' }}>
                 <Link href="/signup" variant="body2">
                   {"Don't have an account? Sign Up"}
                 </Link>

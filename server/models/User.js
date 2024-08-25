@@ -37,6 +37,11 @@ const UserSchema = new Schema(
             type: [],
         },
 
+        isGuest: {
+            type: Boolean,
+            default: false
+        },
+
         register_date : {
             type : Date,
             default : Date.now

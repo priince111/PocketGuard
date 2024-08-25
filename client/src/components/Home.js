@@ -9,6 +9,8 @@ import BarChartIcon from "@mui/icons-material/BarChart";
 import Alert from "@mui/material/Alert";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import TableData from "./TableData";
 import "./Home.css";
 import ChartData from "./ChartData";
@@ -33,8 +35,22 @@ const Home = () => {
     transactionType: "",
   });
 
-  const handleClick = () => {
+  const handleClick = async(e) => {
+    e.preventDefault();
+    console.log(user.existingUser,"user exiseerjf")
+    if(user.existingUser.isGuest){
+      try{
+        const response = await api.delete(`/api/logout`, 
+          {
+            headers: {Authorization: `Bearer ${user.token}`}
+          },
+        );
+      }catch(err){
+        console.log("error in deleting guest user",err);
+      }
+    }
     logout();
+    console.log("end the button")
   };
 
   const handleStartChange = (date) => {
@@ -139,30 +155,45 @@ const Home = () => {
   };
 
   useEffect(() => {
+    if (!user) {
+      return;
+    }
+    try{
+      if(user.existingUser.isGuest){
+        toast.success(`Login as Guest`);
+        return;
+      }
+      toast.success(`Hi ${user.existingUser.FirstName}, welcome back!`);
+    }catch(err){
+      console.log("error in toast message", err);
+    }
+  }, [user]);
+
+  useEffect(() => {
+    if (!user) {
+      return;
+    }
+
     const fetchTransactions = async () => {
-      console.log("started");
       try {
-        const response = await api.get(
-          `/api/getTransaction`,
-          {
-            params: {
-              frequency,
-              startDate,
-              endDate,
-              type,
-            },
-            headers: {
-              Authorization: `Bearer ${user.token}`,
-            },
-          }
-        );
+        const response = await api.get(`/api/getTransaction`, {
+          params: {
+            frequency,
+            startDate,
+            endDate,
+            type,
+          },
+          headers: {
+            Authorization: `Bearer ${user.token}`,
+          },
+        });
 
         if (response.status === 200) {
           const json = response.data;
           dispatch({ type: "SET_TRANSACTION", payload: json });
         }
       } catch (err) {
-        console.log("idhar hai error");
+        console.log("error in fetching transactions", err);
       }
     };
 
