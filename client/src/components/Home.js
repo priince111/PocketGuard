@@ -7,6 +7,10 @@ import { Button, Modal, Form, Container, Navbar } from "react-bootstrap";
 import FormatListBulletedIcon from "@mui/icons-material/FormatListBulleted";
 import BarChartIcon from "@mui/icons-material/BarChart";
 import Alert from "@mui/material/Alert";
+import AccountCircleIcon from '@mui/icons-material/AccountCircle';
+import Menu from '@mui/material/Menu';
+import MenuItem from '@mui/material/MenuItem';
+import IconButton from '@mui/material/IconButton';
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { toast } from "react-toastify";
@@ -34,6 +38,10 @@ const Home = () => {
     date: "",
     transactionType: "",
   });
+
+
+  const [anchorEl, setAnchorEl] = useState(null);
+  const open = Boolean(anchorEl);
 
   const handleClick = async(e) => {
     e.preventDefault();
@@ -154,6 +162,14 @@ const Home = () => {
     setView("chart");
   };
 
+  const handleMenuClick = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+
+  const handleMenuClose = () => {
+    setAnchorEl(null);
+  };
+
   useEffect(() => {
     if (!user) {
       return;
@@ -217,9 +233,19 @@ const Home = () => {
             <Navbar.Brand href="/home" className="text-white navTitle">
               PocketGuard
             </Navbar.Brand>
-            <button onClick={handleClick} className="logout-button">
-              Logout
-            </button>
+            <div className="profile-container">
+              <IconButton onClick={handleMenuClick} className="profile-icon">
+                <AccountCircleIcon style={{ color: "white",fontSize: 40 }} />
+              </IconButton>
+              <Menu
+                anchorEl={anchorEl}
+                open={open}
+                onClose={handleMenuClose}
+              >
+                <MenuItem disabled>{user.existingUser.FirstName}</MenuItem>
+                <MenuItem onClick={handleClick}>Logout</MenuItem>
+              </Menu>
+            </div>
           </Navbar>
           <Container className="mt-3"></Container>
           <div className="row-container">

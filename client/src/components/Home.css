@@ -19,20 +19,15 @@
   font-size: 24px;
   font-weight: bold;
 }
-
-.logout-button {
-  background-color: #0d6efd;
-  color: white;
-  border: none;
-  border-radius: 5px;
-  padding: 6px 12px;
-  margin-left: 62rem;
-  cursor: pointer;
-  font-size: 16px;
+.profile-container {
+  display: flex;
+  align-items: center;
+  margin-left: auto;
+  position: relative;
 }
 
-.logout-button:hover {
-  background-color: #0b5ed7;
+.profile-icon {
+  cursor: pointer;
 }
 
 
