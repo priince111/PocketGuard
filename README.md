@@ -22,8 +22,8 @@
 
 - User Authentication and Authorization:
 
-    Allow users to sign up and log in to their personal accounts using secure authentication mechanisms.
-Implement role-based access control for administrative tasks.
+    Allow users to sign up and log in to their personal accounts using secure authentication mechanisms. Added a OTP verification on signing up. Implement role-based access control for administrative tasks.
+  Users can also login as a guest.
 
 - Expense and Category Management:
 
